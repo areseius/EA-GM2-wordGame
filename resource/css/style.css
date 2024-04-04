@@ -125,9 +125,10 @@ body {
   font-size: 50px;
   padding-inline: 20px;
   border: none;
+  border-bottom: 2px solid white;
+  color: white;
   outline: none;
-
-  border-radius: 40px;
+  background-color: transparent;
 }
 
 .inputArea .check {

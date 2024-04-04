@@ -7,7 +7,7 @@ const joker = document.querySelector(".jokerArea");
 const highScore = document.querySelector(".highScore");
 const chance = document.querySelector(".chance");
 
-let words = [
+const names = [
   "ayxan",
   "aydan",
   "aygun",
@@ -20,6 +20,7 @@ let words = [
   "suray",
   "nezife",
   "nurane",
+  "natiq",
   "nuru",
   "qelemnaz",
   "resul",
@@ -34,30 +35,52 @@ let words = [
   "neman",
 ];
 
-let guessedWord = words[Math.floor(Math.random() * words.length)];
+let secretName = names[Math.floor(Math.random() * names.length)];
 
-word.textContent = guessedWord
+word.textContent = secretName
   .split("")
   .map((_) => "_")
   .join(" ");
+
+// win screen
+
+const showWinScreen = () => {
+  winScreen.children[0].textContent = "YOU WON !!!";
+  winScreen.style.backgroundColor = "green";
+  winScreen.children[1].textContent = `You found the hidden word. This word is "${secretName[0].toUpperCase()}${secretName.slice(
+    1
+  )}"`;
+  winScreen.style.visibility = "visible";
+};
+
+// fail screen
+
+const showFailScreen = () => {
+  winScreen.children[0].textContent = "GAME OVER !!!";
+  winScreen.style.backgroundColor = "red";
+  winScreen.children[1].textContent = "You used all your chances.";
+  winScreen.style.visibility = "visible";
+};
+
+// update high score
+
+const updateHighScore = () => {
+  if (+highScore.children[0].textContent < +chance.children[0].textContent)
+    highScore.children[0].textContent = chance.children[0].textContent;
+};
 
 // check
 
 check.addEventListener("click", (e) => {
   e.preventDefault();
 
-  if (chance.children[0].textContent == 1) {
-    winScreen.children[0].textContent = "GAME OVER !!!";
-    winScreen.style.backgroundColor = "red";
-    winScreen.children[1].textContent = "You used all your chances.";
-    winScreen.style.visibility = "visible";
-  }
+  if (chance.children[0].textContent == 1) showFailScreen();
 
   word.textContent = word.textContent
     .split("")
     .filter((x) => x != " ")
     .map((x, i) =>
-      input.value.trim().toLowerCase()[i] == guessedWord[i]
+      input.value.trim().toLowerCase()[i] == secretName[i]
         ? input.value.trim().toLowerCase()[i]
         : x
     )
@@ -67,17 +90,10 @@ check.addEventListener("click", (e) => {
     word.textContent
       .split("")
       .filter((x) => x != " ")
-      .join("") == guessedWord
+      .join("") == secretName
   ) {
-    +highScore.children[0].textContent < +chance.children[0].textContent &&
-      (highScore.children[0].textContent = chance.children[0].textContent);
-
-    winScreen.children[0].textContent = "YOU WON !!!";
-    winScreen.style.backgroundColor = "green";
-    winScreen.children[1].textContent = `You found the hidden word. This word is "${guessedWord[0].toUpperCase()}${guessedWord.slice(
-      1
-    )}"`;
-    winScreen.style.visibility = "visible";
+    updateHighScore();
+    showWinScreen();
   } else {
     input.value = "";
     +chance.children[0].textContent--;
@@ -90,8 +106,8 @@ reset.addEventListener("click", (e) => {
   e.preventDefault();
   chance.children[0].textContent = 20;
   winScreen.style.visibility = "hidden";
-  guessedWord = words[Math.floor(Math.random() * words.length)];
-  word.textContent = guessedWord
+  secretName = names[Math.floor(Math.random() * names.length)];
+  word.textContent = secretName
     .split("")
     .map((_) => "_")
     .join(" ");
@@ -104,36 +120,34 @@ reset.addEventListener("click", (e) => {
 
 joker.addEventListener("click", (e) => {
   e.preventDefault();
-  if (chance.children[0].textContent == 1) {
-    winScreen.children[0].textContent = "GAME OVER !!!";
-    winScreen.style.backgroundColor = "red";
-    winScreen.children[1].textContent = "You used all your chances.";
-    winScreen.style.visibility = "visible";
-  }
-  let nonOpenedIndexes = word.textContent
+  if (chance.children[0].textContent == 1) showFailScreen();
+
+  const nonOpenedIndexes = word.textContent
     .split("")
     .filter((x) => x != " ")
     .map((x, i) => (x == "_" ? i : -1))
     .filter((x) => x != -1);
 
-  let nonOpenedIndex =
+  const nonOpenedIndex =
     nonOpenedIndexes[Math.floor(Math.random() * nonOpenedIndexes.length)];
 
   let jokeredWord = word.textContent.split("").filter((x) => x != " ");
 
-  jokeredWord[nonOpenedIndex] = guessedWord[nonOpenedIndex];
+  jokeredWord[nonOpenedIndex] = secretName[nonOpenedIndex];
 
   if (+joker.children[1].textContent) {
-    +chance.children[0].textContent--;
     word.textContent = jokeredWord.join(" ");
+    if (
+      word.textContent
+        .split("")
+        .filter((x) => x != " ")
+        .join("") == secretName
+    ) {
+      updateHighScore();
+      showWinScreen();
+    }
+
+    +chance.children[0].textContent--;
     +joker.children[1].textContent--;
-    word.textContent
-      .split("")
-      .filter((x) => x != " ")
-      .join("") == guessedWord &&
-      (winScreen.style.visibility = "visible") &&
-      (winScreen.children[1].textContent = `You found the hidden word. This word is "${guessedWord[0].toUpperCase()}${guessedWord.slice(
-        1
-      )}"`);
   }
 });
