@@ -1,0 +1,132 @@
+body {
+  background-color: #252432;
+}
+
+.winScreen {
+  height: 100vh;
+  width: 100%;
+  background-color: rgb(4, 184, 4);
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+  visibility: hidden;
+}
+
+.winScreen h1 {
+  font-size: 100px;
+  color: white;
+  letter-spacing: 5px;
+  user-select: none;
+}
+.winScreen p {
+  font-size: 25px;
+  color: white;
+  letter-spacing: 5px;
+  user-select: none;
+  margin-block: 10px 20px;
+}
+
+.winScreen .playAgain {
+  border: 2px solid white;
+  outline: none;
+  color: white;
+  background-color: transparent;
+  padding: 10px 20px;
+  font-size: 30px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.gameName {
+  height: 10vh;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gameName h1 {
+  font-size: 50px;
+  color: white;
+  letter-spacing: 5px;
+  user-select: none;
+}
+
+.wordPattern {
+  height: 50vh;
+  width: 100%;
+  /* background-color: purple; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wordPattern p {
+  color: white;
+  font-size: 90px;
+  letter-spacing: 10px;
+  user-select: none;
+}
+.wordPattern .jokerArea {
+  position: relative;
+  transform: translateY(-80px) translateX(-100px);
+  cursor: pointer;
+}
+.wordPattern .jokerArea .joker {
+  display: inline-block;
+  font-size: 50px;
+  color: white;
+}
+
+.wordPattern .jokerArea span {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: white;
+  background-color: red;
+  top: -10px;
+  right: -10px;
+  user-select: none;
+}
+
+.inputArea {
+  height: 40vh;
+  width: 100%;
+  /* background-color: green; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 3% 10% 0;
+}
+
+.inputArea input {
+  width: 100%;
+  height: 80px;
+  font-size: 50px;
+  padding-inline: 20px;
+  border: none;
+  outline: none;
+
+  border-radius: 40px;
+}
+
+.inputArea .check {
+  border: 2px solid white;
+  outline: none;
+  padding: 10px 20px;
+  font-size: 30px;
+  margin-top: 30px;
+  cursor: pointer;
+  color: white;
+  border-radius: 20px;
+  background-color: transparent;
+}
