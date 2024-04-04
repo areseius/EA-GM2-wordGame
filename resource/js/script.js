@@ -46,6 +46,13 @@ word.textContent = guessedWord
 check.addEventListener("click", (e) => {
   e.preventDefault();
 
+  if (chance.children[0].textContent == 1) {
+    winScreen.children[0].textContent = "GAME OVER !!!";
+    winScreen.style.backgroundColor = "red";
+    winScreen.children[1].textContent = "You used all your chances.";
+    winScreen.style.visibility = "visible";
+  }
+
   word.textContent = word.textContent
     .split("")
     .filter((x) => x != " ")
@@ -65,6 +72,8 @@ check.addEventListener("click", (e) => {
     +highScore.children[0].textContent < +chance.children[0].textContent &&
       (highScore.children[0].textContent = chance.children[0].textContent);
 
+    winScreen.children[0].textContent = "YOU WON !!!";
+    winScreen.style.backgroundColor = "green";
     winScreen.children[1].textContent = `You found the hidden word. This word is "${guessedWord[0].toUpperCase()}${guessedWord.slice(
       1
     )}"`;
@@ -95,7 +104,12 @@ reset.addEventListener("click", (e) => {
 
 joker.addEventListener("click", (e) => {
   e.preventDefault();
-
+  if (chance.children[0].textContent == 1) {
+    winScreen.children[0].textContent = "GAME OVER !!!";
+    winScreen.style.backgroundColor = "red";
+    winScreen.children[1].textContent = "You used all your chances.";
+    winScreen.style.visibility = "visible";
+  }
   let nonOpenedIndexes = word.textContent
     .split("")
     .filter((x) => x != " ")
