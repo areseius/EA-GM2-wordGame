@@ -4,6 +4,8 @@ const word = document.querySelector(".guessing");
 const input = document.querySelector("input");
 const winScreen = document.querySelector(".winScreen");
 const joker = document.querySelector(".jokerArea");
+const highScore = document.querySelector(".highScore");
+const chance = document.querySelector(".chance");
 
 let words = [
   "ayxan",
@@ -60,18 +62,24 @@ check.addEventListener("click", (e) => {
       .filter((x) => x != " ")
       .join("") == guessedWord
   ) {
-    input.value = guessedWord;
+    +highScore.children[0].textContent < +chance.children[0].textContent &&
+      (highScore.children[0].textContent = chance.children[0].textContent);
+
     winScreen.children[1].textContent = `You found the hidden word. This word is "${guessedWord[0].toUpperCase()}${guessedWord.slice(
       1
     )}"`;
     winScreen.style.visibility = "visible";
-  } else input.value = "";
+  } else {
+    input.value = "";
+    +chance.children[0].textContent--;
+  }
 });
 
 // play again
 
 reset.addEventListener("click", (e) => {
   e.preventDefault();
+  chance.children[0].textContent = 20;
   winScreen.style.visibility = "hidden";
   guessedWord = words[Math.floor(Math.random() * words.length)];
   word.textContent = guessedWord
@@ -102,6 +110,7 @@ joker.addEventListener("click", (e) => {
   jokeredWord[nonOpenedIndex] = guessedWord[nonOpenedIndex];
 
   if (+joker.children[1].textContent) {
+    +chance.children[0].textContent--;
     word.textContent = jokeredWord.join(" ");
     +joker.children[1].textContent--;
     word.textContent
