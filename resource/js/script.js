@@ -2,7 +2,7 @@ const check = document.querySelector(".check");
 const reset = document.querySelector(".playAgain");
 const word = document.querySelector(".guessing");
 const input = document.querySelector("input");
-const winScreen = document.querySelector(".winScreen");
+const resultScreen = document.querySelector(".resultScreen");
 const joker = document.querySelector(".jokerArea");
 const highScore = document.querySelector(".highScore");
 const chance = document.querySelector(".chance");
@@ -45,21 +45,21 @@ word.textContent = secretName
 // win screen
 
 const showWinScreen = () => {
-  winScreen.children[0].textContent = "YOU WON !!!";
-  winScreen.style.backgroundColor = "green";
-  winScreen.children[1].textContent = `You found the hidden word. This word is "${secretName[0].toUpperCase()}${secretName.slice(
+  resultScreen.children[0].textContent = "YOU WON !!!";
+  resultScreen.style.backgroundColor = "green";
+  resultScreen.children[1].textContent = `You found the hidden word. This word is "${secretName[0].toUpperCase()}${secretName.slice(
     1
   )}"`;
-  winScreen.style.visibility = "visible";
+  resultScreen.style.visibility = "visible";
 };
 
 // fail screen
 
 const showFailScreen = () => {
-  winScreen.children[0].textContent = "GAME OVER !!!";
-  winScreen.style.backgroundColor = "red";
-  winScreen.children[1].textContent = "You used all your chances.";
-  winScreen.style.visibility = "visible";
+  resultScreen.children[0].textContent = "GAME OVER !!!";
+  resultScreen.style.backgroundColor = "red";
+  resultScreen.children[1].textContent = "You used all your chances.";
+  resultScreen.style.visibility = "visible";
 };
 
 // update high score
@@ -105,7 +105,7 @@ check.addEventListener("click", (e) => {
 reset.addEventListener("click", (e) => {
   e.preventDefault();
   chance.children[0].textContent = 20;
-  winScreen.style.visibility = "hidden";
+  resultScreen.style.visibility = "hidden";
   secretName = names[Math.floor(Math.random() * names.length)];
   word.textContent = secretName
     .split("")

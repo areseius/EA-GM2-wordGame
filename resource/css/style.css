@@ -2,7 +2,7 @@ body {
   background-color: #252432;
 }
 
-.winScreen {
+.resultScreen {
   height: 100vh;
   width: 100%;
   background-color: rgb(4, 184, 4);
@@ -15,13 +15,13 @@ body {
   visibility: hidden;
 }
 
-.winScreen h1 {
+.resultScreen h1 {
   font-size: 100px;
   color: white;
   letter-spacing: 5px;
   user-select: none;
 }
-.winScreen p {
+.resultScreen p {
   font-size: 25px;
   color: white;
   letter-spacing: 5px;
@@ -29,7 +29,7 @@ body {
   margin-block: 10px 20px;
 }
 
-.winScreen .playAgain {
+.resultScreen .playAgain {
   border: 2px solid white;
   outline: none;
   color: white;
